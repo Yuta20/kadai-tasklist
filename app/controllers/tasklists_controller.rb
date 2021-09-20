@@ -5,11 +5,11 @@ class TasklistsController < ApplicationController
     end
     
     def show
-        @tasklist = Tasklist.all
+        @tasklist = Tasklist.find(params[:id])
     end
     
     def new
-        @tasklist = Tasklist.all
+        @tasklist = Tasklist.new
     end
     
     def create
@@ -43,6 +43,12 @@ class TasklistsController < ApplicationController
         @tasklist.destroy
         flash[:success] = 'Task は正常に削除されました'
         redirect_to tasklists_url
+    end
+    
+    private
+    
+    def tasklist_params
+        params.require(:tasklist).permit(:content)
     end
     
 end
